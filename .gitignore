@@ -1,7 +1,7 @@
 core.Microsoft*
 core.mongo*
 core.python*
-env.py
+#env.py                        #removed as ony temp data 
 __pycache__/
 *.py[cod]
 node_modules/
