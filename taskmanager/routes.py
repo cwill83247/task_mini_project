@@ -1,4 +1,4 @@
-from flask import render_template ,request                         #std  the request is part of the form functionality
+from flask import render_template ,request, redirect , url_for                         #std  the request is part of the form functionality
 from taskmanager import app, db                             #std the taskmanager is from env.py this line os.environ.setdefault("DB_URL", "postgresql:///taskmanager")   #std
 from taskmanager.models import Category, Task           #std from models.py file import the classes created Category and Task
 
@@ -14,7 +14,7 @@ def categories():
 
 @app.route("/add_category", methods=["GET", "POST"])            #std   GET and POST are beacuse its a FORM                             
 def add_category():
-    if request.method == "POST":                                                ##part of post for category
+    if request.method =="POST":                                                ##part of post for category
         category = Category(category_name=request.form.get("category_name"))
         db.session.add(category)
         db.session.commit()
