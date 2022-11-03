@@ -6,4 +6,4 @@ from taskmanager.models import Category, Task           #std from models.py file
 
 @app.route("/")                                         #std                                
 def home():
-    return render_template("base.html")
+    return render_template("tasks.html")               # first page is tasks.html ---
