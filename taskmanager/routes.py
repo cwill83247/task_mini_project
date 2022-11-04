@@ -38,3 +38,20 @@ def delete_category(category_id):
     db.session.delete(category)
     db.session.commit()
     return redirect(url_for("categories"))           ##redirects back to the category function above, which then effectivley loads the categories page 
+
+##my attempt
+@app.route("/add_task", methods=["GET", "POST"])            #std   GET and POST are beacuse its a FORM                             
+def add_task():
+    categories = list(Category.query.order_by(Category.category_name).all())  ## this related to neededing the category
+    if request.method =="POST":                                                
+        task = Task(
+        task_name=request.form.get("task_name"),
+        task_description = request.form.get("task_description"),                                 #text field
+        is_urgent = bool(True if request.form.get("is_urgent")else False),                           # boolean field 
+        due_date = request.form.get("due_date"),
+        category_id=request.form.get("category_id")                                      #   
+        )
+        db.session.add(task)
+        db.session.commit()
+        return redirect(url_for("home"))                                        
+    return render_template("add_task.html", categories=categories)       

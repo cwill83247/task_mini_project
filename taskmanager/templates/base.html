@@ -22,7 +22,7 @@
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="fas fa-bars">menu</i></a>        <!--i class is referencing font awesome icons-->
       <ul class="right hide-on-med-and-down">
         <li><a href="{{url_for('home')}}">Home</a></li>                                     <!-- need to ref url 'home' is part of our routes.py we do it in this way due to the flask framework-->
-        <li><a href="">Create a Note</a></li>  
+        <li><a href="{{url_for('add_task')}}">Create a Note</a></li>  
         <li><a href="{{url_for('categories')}}">Categories</a></li>  
         
       </ul>
@@ -31,7 +31,7 @@
 <!--mobile side namv bar-->
   <ul class="sidenav" id="mobile-demo">
     <li><a href="{{url_for('home')}}">Home</a></li>                    <!-- CAN'T  use # as placeholder ofr href flask / python will throw an error-->
-    <li><a href="">Create a Note</a></li>  
+    <li><a href="{{url_for('add_task')}}">Create a Note</a></li>  
     <li><a href="{{url_for('categories')}}">Categories</a></li>  
   </ul>
 </header>
