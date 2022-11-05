@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3 class="light-blue-text text-darken-4 center-align">Add Category</h3>
+
+<div class="row card-panel grey lighten-5">                                                  <!--from materialize-->
+    <form class="col s12" method="POST" action="{{ url_for('add_task') }}">                <!--from materialize   and then points to the fUNCTION add_category-->
+        <!-- task name -->
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="fas fa-folder-open prefix light-blue-text text-darken-4"></i>
+                <input id="task_name" name="task_name" minlength="3" maxlength="25" type="text" class="validate" required>
+                <label for="task_name">Task Name</label>
+            </div>
+        </div>
+        <!-- task descriptipn -->
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="fas fa-folder-open prefix light-blue-text text-darken-4"></i>
+                <textarea id="task_description" name="task_description" minlength="3" maxlength="150" type="text" class="materialize-textarea" required> <!--using materialize styling of text area-->
+                </textarea>
+                <label for="task_description">Task Description</label>
+            </div>
+        </div>
+        <!-- due date -->
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="fas fa-folder-open prefix light-blue-text text-darken-4"></i>
+                <input id="due_date" name="due_date" minlength="3" maxlength="25" type="text" class="datepicker" required>  <!-- materialize datepicker also requires JS in the JS file-->
+                <label for="due_date">Due Date</label>
+            </div>
+        </div>
+          <!-- is urgent -->
+          <div class="row">
+            <div class="input-field col s12">
+                <div class="switch">
+                <i class="fas fa-exclamation-circle prefix light-blue-text text-darken-4"></i>           <!-- FONT AWESOME-->
+                <label for="is_urgent">
+                <input id="is_urgent" name="is_urgent"  type="checkbox">  <!-- materialize see switches documentation-->
+            <span class="lever"></span>
+            IS Urgent                                       <!--- formatting for this takes a bit to get head around-->    
+            </label>
+            </div>
+        </div>
+        </div>
+         <!-- Category ID SELECT LIST need to add JS to script.js as well to initialize it -->
+         <div class="row">
+            <div class="input-field col s12">
+                <i class="fas fa-folder-open prefix light-blue-text text-darken-4"></i>
+                <select id="category_id" name="category_id" class="validate" required>
+                   <option value="" disabled selected>Chooose Category</option>                           
+                   {% for category in categories %}                                         <!---- Jinja Loop -->
+                        <option value="{{ category.id }}">{{ category.category_name }}</option>
+                    {% endfor %}
+                </select>
+                <label for="category_id">Select Category</label>
+            </div>
+        </div>
+        <!-- submit button -->
+        <div class="row">
+            <div class="col s12 center-align">                                      <!-- the col s12 means span 12 columns could change to s6 for example and would span 6 columns-->
+                <button type="submit" class="btn-large light-blue darken-1">
+                    Add Task <i class="fas fa-plus-square right"></i>                      <!--from font awesome --> 
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
