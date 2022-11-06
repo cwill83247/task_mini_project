@@ -10,18 +10,28 @@
         </a>
     </div>
 </div>
-<div class="row">
-    {% for task in tasks %}                  
-        <div class="col s12 m6 l3">                        <!-- s12 means 100% , m6 so medium devices 50%  and l3 is large devcies 25% of 12 so 4 cards -->
-        <div class="card blue-grey darken-1">
-          <div class="card-content white-text">
-            <span class="card-title">{{task.task_name}}</span>               <!--  so displays from the category table, the contentsof the field category_name-->
-            <p>I am a very simple card. I am good at containing small bits of information.
-            I am convenient because I require little markup to use effectively.</p>
+
+<!-- start of collpasible section and if statement and for loop -->
+
+    <ul class="collapsible">
+      {% for task in tasks|sort(attribute="due_date") %}                    <!-- Start of For loop  and added jinja sort option-->
+      <li>
+          <div class="collapsible-header white-text light-blue darken-4">
+              <i class="fas fa-caret-down"></i>
+              <strong>{{ task.task_name }}</strong> : {{ task.due_date.strftime("%d %B, %Y") }}     <!-- adding task name , with date and time JINJA Template used-->
+              {% if task.is_urgent == True %}
+                  <i class="fas fa-exclamation-circle light-blue-text text-lighten-2"></i>            <!-- if URGENT = TRUE then add an exclamation ICON-->
+              {% endif %}
           </div>
-          
-        </div>
-      </div>
+          <div class="collapsible-body">
+              <strong>{{ task.category }}</strong>
+              <p>{{ task.task_description }}</p>
+              <a href="{{ url_for('edit_task', task_id=task.id)}}" class="btn green accent-4">Edit</a>     <!--as well as call the edit category url, we are passing it the category id -->
+              <a href="{{ url_for('delete_task', task_id=task.id)}}" class="btn red">Delete</a>  
+          </div>
+         
+      </li>
       {% endfor %}
-    </div>
+  </ul>
+          
 {% endblock %}

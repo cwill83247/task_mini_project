@@ -57,3 +57,28 @@ def add_task():
         return redirect(url_for("home"))                                        
     return render_template("add_task.html", categories=categories)       
 
+## my attempt for editing taks using categories 6/11/2022
+
+
+@app.route("/edit_task/<int:task_id>", methods=["GET", "POST"])  ## we are passing back into the function here the id <int:category_id>
+def edit_task(task_id):
+    task = Task.query.get_or_404(task_id)          ##this is a builtin SQLAlchemy method that tries to query base don whats passe din or it returns a 404 error
+    categories = list(Category.query.order_by(Category.category_name).all()) ### needed this think its linked to the return render_template
+    if request.method == "POST":
+        task.task_name = request.form.get("task_name")
+        task.task_description = request.form.get("task_description")
+        task.is_urgent = bool(True if request.form.get("is_urgent") else False)
+        task.due_date = request.form.get("due_date")
+        task.category_id = request.form.get("category_id")
+        db.session.commit()
+    return render_template("edit_task.html", task=task, categories=categories)     # not sure why got task=task, and categories=categories
+
+##my attempt
+# 
+@app.route("/delete_task/<int:task_id>")
+def delete_task(task_id):                           #function is delete_task and expects (task_id to be passed)
+    task = Task.query.get_or_404(task_id)     # creating a variable task - this uses the Task Class (form Models.py) with the task_id thats been passed  
+    db.session.delete(task)                     # whatever gets assigned to taks above we are deleting
+    db.session.commit()
+    return redirect(url_for("home"))           ##redirects back to the home function above, which then effectivley loads the tasks  
+    
