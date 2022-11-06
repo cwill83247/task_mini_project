@@ -77,7 +77,7 @@ def edit_task(task_id):
 # 
 @app.route("/delete_task/<int:task_id>")
 def delete_task(task_id):                           #function is delete_task and expects (task_id to be passed)
-    task = Task.query.get_or_404(task_id)     # creating a variable task - this uses the Task Class (form Models.py) with the task_id thats been passed  
+    task = Task.query.get_or_404(task_id)     # creating a variable task - then we query DB uses the Task Class (form Models.py) with the task_id thats been passed  
     db.session.delete(task)                     # whatever gets assigned to taks above we are deleting
     db.session.commit()
     return redirect(url_for("home"))           ##redirects back to the home function above, which then effectivley loads the tasks  
